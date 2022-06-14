@@ -1,11 +1,12 @@
 import * as express from 'express';
+import Routes from './routes';
 
 class App {
   public app: express.Express;
-  // ...
+  public routes = Routes;
 
   constructor() {
-    // ...
+    this.app = express();
     this.config();
     // ...
   }
@@ -19,12 +20,15 @@ class App {
     };
 
     this.app.use(accessControl);
-    // ...
+    this.app.use(express.json());
+    this.routes(this.app)
+
   }
 
   // ...
   public start(PORT: string | number):void {
-    // ...
+    this.app.listen(PORT, () => console.log(`Escutando na porta &{PORT}`));
+    
   }
 }
 
