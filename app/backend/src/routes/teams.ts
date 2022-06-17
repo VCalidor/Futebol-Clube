@@ -12,7 +12,7 @@ router.get(
 
 router.get(
   '/:id',
-  teams.getAll,
+  teams.getById,
 );
 
 export default router;
