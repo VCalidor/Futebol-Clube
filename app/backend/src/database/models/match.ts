@@ -2,14 +2,19 @@ import { Model, INTEGER, BOOLEAN } from 'sequelize';
 import db from '.';
 
 class Match extends Model {
+  id: number;
   homeTeam: number;
-  homeTeam_goals: number;
+  homeTeamGoals: number;
   awayTeam: number;
-  awayTeam_goals: number;
+  awayTeamGoals: number;
   inProgress: boolean;
 }
 
 Match.init({
+  id: {
+    type: INTEGER,
+    primaryKey: true,
+  },
   homeTeam: INTEGER,
   homeTeam_goals: INTEGER,
   awayTeam: INTEGER,

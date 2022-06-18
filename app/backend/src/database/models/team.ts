@@ -1,13 +1,18 @@
-import { Model, STRING } from 'sequelize';
+import { Model, STRING, INTEGER } from 'sequelize';
 import db from '.';
 import Match from './match';
 
 class Team extends Model {
+  id: number;
   teamName: string;
 }
 
 Team.init({
-  team_name: STRING
+  id: {
+    type: INTEGER,
+    primaryKey: true,
+  },
+  team_name: STRING,
 }, {
   underscored: true,
   sequelize: db,

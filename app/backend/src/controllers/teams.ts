@@ -4,7 +4,7 @@ import TeamsModel from '../database/models/team';
 
 class TeamsController {
 
-  constructor() {}
+  constructor() {} 
 
   public getAll = async (_req: Request, res: Response) => {
     const teams = await TeamsModel.findAll() ;
@@ -13,9 +13,7 @@ class TeamsController {
 
   public getById = async (req: Request, res: Response) => {
     const { id } = req.params
-    const team = await TeamsModel.findByPk(id);
-
-    if(!team) return res.status(400).json({message: 'Time não existente'})
+    const team = await TeamsModel.findOne({ where: { id } });
 
     return res.status(200).json(team);
   };
