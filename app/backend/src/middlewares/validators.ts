@@ -8,8 +8,7 @@ function loginPostVal(req: Request, res: Response, next: NextFunction) {
   const { error } = loginPostSchema.validate(user);
 
   if (error) {
-    const status = error.details[0].type
-    return res.status(status).json({ message: error.details[0].message });
+    return res.status(400).json({ message: error });
   }
 
   next();
@@ -24,7 +23,7 @@ const authVal = async (req: Request, res: Response, next: NextFunction) => {
     if(!token) return res.status(401).json({ message: 'Token not found' });
 
     const decode = jwt.verify(token, SECRET);
-    req.body.user = decode
+    req.body.user = decode;
 
     return next();
   } catch (err) {
@@ -33,5 +32,6 @@ const authVal = async (req: Request, res: Response, next: NextFunction) => {
 }
 
 export {
+  authVal,
   loginPostVal,
 }; 

@@ -22,6 +22,12 @@ class LoginController {
       },
     });
   };
+
+  public loginValidate = async (req: Request, res: Response) => {
+    const { role } = req.body.user.data.data
+
+    return res.status(200).json(role);
+  };
 }
 
 export default LoginController;

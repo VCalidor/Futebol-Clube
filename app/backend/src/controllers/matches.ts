@@ -8,23 +8,34 @@ class MatchesController {
 
   public getAll = async (req: Request, res: Response) => {
     const { inProgress } = req.query;
-    if(inProgress) {
-      const matches = await MatchesModel.findAll({
-        where: { inProgress: 'true'},
+    let matches;
+    if(inProgress === undefined) {
+      matches = await MatchesModel.findAll({
         include: [
           { model: TeamsModel, as: 'teamHome', attributes: ['team_name'] },
           { model: TeamsModel, as: 'teamAway', attributes: ['team_name'] }
         ]
       });
-      return res.status(200).json(matches);
     } 
-    const matches = await MatchesModel.findAll({
-      where: { inProgress: 'false'},
-      include: [
-        { model: TeamsModel, as: 'teamHome', attributes: ['team_name'] },
-        { model: TeamsModel, as: 'teamAway', attributes: ['team_name'] }
-      ]
-    });
+    if(inProgress === 'true') {
+      matches = await MatchesModel.findAll({
+        where: { inProgress: true},
+        include: [
+          { model: TeamsModel, as: 'teamHome', attributes: ['team_name'] },
+          { model: TeamsModel, as: 'teamAway', attributes: ['team_name'] }
+        ]
+      });
+    }
+    if(inProgress === 'false') {
+      matches = await MatchesModel.findAll({
+        where: { inProgress: false},
+        include: [
+          { model: TeamsModel, as: 'teamHome', attributes: ['team_name'] },
+          { model: TeamsModel, as: 'teamAway', attributes: ['team_name'] }
+        ]
+      });
+    }
+
     return res.status(200).json(matches);
   };
 }

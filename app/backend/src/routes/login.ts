@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import Login from '../controllers/login';
-import { loginPostVal } from '../middlewares/validators'
+import { loginPostVal, authVal } from '../middlewares/validators'
 
 const router = Router();
 
@@ -12,4 +12,10 @@ router.post(
   login.login,
 );
 
+router.get(
+  '/',
+  authVal,
+  login.loginValidate,
+);
+  
 export default router;

@@ -16,7 +16,7 @@ class TeamsController {
 
   public getById = async (req: Request, res: Response) => {
     const { id } = req.params
-    const team = await TeamsModel.findOne({ where: { id } });
+    const team = await TeamsModel.findByPk(id);
 
     if(team) return res.status(200).json({ id, teamName: team.team_name });
 
