@@ -18,9 +18,9 @@ class TeamsController {
     const { id } = req.params
     const team = await TeamsModel.findOne({ where: { id } });
 
-    if(!team) return res.status(404).json({ message: 'team not found' });
+    if(team) return res.status(200).json({ id, teamName: team.team_name });
 
-    return res.status(200).json({ id, teamName: team.team_name });
+    return res.status(404).json({ message: 'There is no team with such id!' });
   };
 }
 
