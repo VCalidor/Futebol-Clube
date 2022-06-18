@@ -7,7 +7,10 @@ class TeamsController {
   constructor() {} 
 
   public getAll = async (_req: Request, res: Response) => {
-    const teams = await TeamsModel.findAll() ;
+    const teams = await TeamsModel.findAll({
+      attributes: ['id',['team_name', 'teamName']]
+    }) ;
+    
     return res.status(200).json(teams);
   };
 
@@ -15,7 +18,9 @@ class TeamsController {
     const { id } = req.params
     const team = await TeamsModel.findOne({ where: { id } });
 
-    return res.status(200).json(team);
+    if(!team) return res.status(404).json({ message: 'team not found' });
+
+    return res.status(200).json({ id, teamName: team.team_name });
   };
 }
 
