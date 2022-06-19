@@ -13,12 +13,13 @@ class Match extends Model {
 Match.init({
   id: {
     type: INTEGER,
+    autoIncrement: true,
     primaryKey: true,
   },
   homeTeam: INTEGER,
-  homeTeam_goals: INTEGER,
+  homeTeamGoals: INTEGER,
   awayTeam: INTEGER,
-  awayTeam_goals: INTEGER,
+  awayTeamGoals: INTEGER,
   inProgress: BOOLEAN
 }, {
   underscored: true,

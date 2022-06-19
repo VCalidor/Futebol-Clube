@@ -10,4 +10,20 @@ router.get(
   matches.getAll,
 );
 
+router.post(
+  '/',
+  matches.create,
+);
+
+router.patch(
+  '/:id',
+  matches.update,
+);
+
+router.patch(
+  '/:id/finish',
+  matches.finish,
+);
+
+
 export default router;

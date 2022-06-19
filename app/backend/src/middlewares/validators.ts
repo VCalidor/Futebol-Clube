@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import * as fs from 'fs/promises';
 import { Request, Response, NextFunction } from 'express';
-import { loginPostSchema } from '../helpers/schemes';
+import { loginPostSchema, matchPostSchema } from '../helpers/schemes';
 
 function loginPostVal(req: Request, res: Response, next: NextFunction) {
   const user = req.body;
@@ -13,6 +13,18 @@ function loginPostVal(req: Request, res: Response, next: NextFunction) {
 
   next();
 }
+
+function matchesPostVal(req: Request, res: Response, next: NextFunction) {
+  const match = req.body;
+  const { error } = matchPostSchema.validate(match);
+
+  if (error) {
+    return res.status(400).json({ message: error.details[0].message  });
+  }
+
+  next();
+}
+
 
 const authVal = async (req: Request, res: Response, next: NextFunction) => {
   const jwtSecret = async () => fs.readFile('jwt.evaluation.key', 'utf-8');
@@ -32,6 +44,7 @@ const authVal = async (req: Request, res: Response, next: NextFunction) => {
 }
 
 export {
-  authVal,
   loginPostVal,
+  matchesPostVal,
+  authVal,
 }; 

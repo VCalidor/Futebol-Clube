@@ -10,6 +10,7 @@ class Team extends Model {
 Team.init({
   id: {
     type: INTEGER,
+    autoIncrement: true,
     primaryKey: true,
   },
   team_name: STRING,

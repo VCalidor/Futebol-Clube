@@ -38,6 +38,51 @@ class MatchesController {
 
     return res.status(200).json(matches);
   };
+
+
+  public create = async (req: Request, res: Response) => {
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = req.body;
+
+    if(homeTeam === awayTeam) {
+      return res
+      .status(400)
+      .json({ message: "It is not possible to create a match with two equal teams" });
+    }
+  
+    const homeTeamExists = await TeamsModel.findByPk(homeTeam);
+    const awayTeamExists = await TeamsModel.findByPk(awayTeam);
+
+    if(homeTeamExists === null || awayTeamExists === null) {
+      return res.status(400).json({ "message": "There is no team with such id!" });
+    }
+
+    const newMatch = await MatchesModel.create({
+      homeTeam,
+      awayTeam,
+      homeTeamGoals,
+      awayTeamGoals,
+      inProgress,
+    })
+
+    return res.status(201).json(newMatch);
+  };
+
+  public finish = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    await MatchesModel.update({ inProgress: false }, { where: { id } })
+
+    return res.status(200).json({ message: 'Finished' });
+  };
+
+  public update = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+
+    await MatchesModel.update({ homeTeamGoals, awayTeamGoals }, { where: { id } })
+
+    return res.status(200).json({ message: 'Morena Tropicana' });
+  };
 }
 
 export default MatchesController;

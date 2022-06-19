@@ -13,7 +13,7 @@ router.post(
 );
 
 router.get(
-  '/',
+  '/validate',
   authVal,
   login.loginValidate,
 );
