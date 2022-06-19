@@ -1,7 +1,10 @@
 const bcrypt = require('bcryptjs');
+const fs = require('fs');
+import * as jwt from 'jsonwebtoken';
 import { Request, Response } from 'express';
 import UsersModel from '../database/models/user';
 // import TeamsInterface from '../interfaces/TeamsInterface';
+const jwtSecret =  fs.readFileSync('jwt.evaluation.key', 'utf8');
 
 class LoginController {
   constructor() {}
@@ -13,18 +16,19 @@ class LoginController {
 
     if(!user) return res.status(401).json({ message: 'Incorrect email or password' })
   
-    const correctPassword = await bcrypt.compare(password, user.password);
+    const correctPassword = await bcrypt.compare(password, user?.password);
 
     if (!correctPassword) return res.status(401).json({ message: 'Incorrect email or password' });
 
+    const token = jwt.sign({ email, id: user.id, role: user.role }, jwtSecret, { expiresIn: '1d' });
+
     return res.status(200).json({
-      user: {id: user.id, username: user.username, role: user.role, email: user.email,
-      },
+      user: { id: user.id, username: user.username, role: user.role, email: user.email }, token
     });
   };
 
   public loginValidate = async (req: Request, res: Response) => {
-    const { role } = req.body.user.data.data
+    const { role } = req.body.user.data
 
     return res.status(200).json(role);
   };
