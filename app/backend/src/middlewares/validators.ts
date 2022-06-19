@@ -8,7 +8,7 @@ function loginPostVal(req: Request, res: Response, next: NextFunction) {
   const { error } = loginPostSchema.validate(user);
 
   if (error) {
-    return res.status(400).json({ message: error });
+    return res.status(400).json({ message: 'All fields must be filled' });
   }
 
   next();
