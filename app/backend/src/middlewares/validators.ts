@@ -40,13 +40,13 @@ function matchesPatchVal(req: Request, res: Response, next: NextFunction) {
 const authVal = async (req: Request, res: Response, next: NextFunction) => {
   const jwtSecret = async () => fs.readFile('jwt.evaluation.key', 'utf-8');
   try {
-    const SECRET = await jwtSecret();
+    const JWTsecret = await jwtSecret();
     const token = req.headers.authorization;
 
     if(!token) return res.status(401).json({ message: 'Token not found' });
 
-    const decode = jwt.verify(token, SECRET);
-    req.body.user = decode;
+    jwt.verify(token, JWTsecret);
+    // req.body.user = decode;
 
     return next();
   } catch (err) {

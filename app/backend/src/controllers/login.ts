@@ -16,7 +16,7 @@ class LoginController {
 
     if(!user) return res.status(401).json({ message: 'Incorrect email or password' })
   
-    const correctPassword = await bcrypt.compare(password, user?.password);
+    const correctPassword = await bcrypt.compare(password, user.password);
 
     if (!correctPassword) return res.status(401).json({ message: 'Incorrect email or password' });
 
@@ -28,9 +28,9 @@ class LoginController {
   };
 
   public loginValidate = async (req: Request, res: Response) => {
-    const { role } = req.body.user.data
-
-    return res.status(200).json(role);
+    const lala = req.body.user.role
+    
+    return res.status(200).json(lala);
   };
 }
 

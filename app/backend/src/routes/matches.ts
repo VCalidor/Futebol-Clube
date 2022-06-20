@@ -21,14 +21,12 @@ router.post(
 
 router.patch(
   '/:id',
-  authVal,
   matchesPatchVal,
   matches.update,
 );
 
 router.patch(
   '/:id/finish',
-  authVal,
   matches.finish,
 );
 

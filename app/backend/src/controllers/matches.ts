@@ -53,7 +53,7 @@ class MatchesController {
     const awayTeamExists = await TeamsModel.findByPk(awayTeam);
 
     if(homeTeamExists === null || awayTeamExists === null) {
-      return res.status(404).json({ message: "There is no team with such id!" });
+      return res.status(400).json({ message: "There is no team with such id!" });
     }
 
     const newMatch = await MatchesModel.create({
@@ -83,6 +83,11 @@ class MatchesController {
   public update = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { homeTeamGoals, awayTeamGoals } = req.body;
+
+    const match = await TeamsModel.findByPk(id);
+    if(match === null) {
+      return res.status(404).json({ message: "There is no match with such id!" });
+    }
 
     await MatchesModel.update({ homeTeamGoals, awayTeamGoals, inProgress: false }, { where: { id } })
 
