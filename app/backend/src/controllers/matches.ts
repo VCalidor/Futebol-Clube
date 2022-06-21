@@ -12,8 +12,8 @@ class MatchesController {
     if(inProgress === undefined) {
       matches = await MatchesModel.findAll({
         include: [
-          { model: TeamsModel, as: 'teamHome', attributes: [['team_name', 'teamName']] },
-          { model: TeamsModel, as: 'teamAway', attributes: [['team_name', 'teamName']]  }
+          { model: TeamsModel, as: 'teamHome', attributes: ['teamName'] },
+          { model: TeamsModel, as: 'teamAway', attributes: ['teamName'] }
         ]
       });
     } 
@@ -21,8 +21,8 @@ class MatchesController {
       matches = await MatchesModel.findAll({
         where: { inProgress: true},
         include: [
-          { model: TeamsModel, as: 'teamHome', attributes: [['team_name', 'teamName']]  },
-          { model: TeamsModel, as: 'teamAway', attributes: [['team_name', 'teamName']]  }
+          { model: TeamsModel, as: 'teamHome', attributes: ['teamName'] },
+          { model: TeamsModel, as: 'teamAway', attributes: ['teamName'] }
         ]
       });
     }
@@ -30,8 +30,8 @@ class MatchesController {
       matches = await MatchesModel.findAll({
         where: { inProgress: false},
         include: [
-          { model: TeamsModel, as: 'teamHome', attributes: [['team_name', 'teamName']]  },
-          { model: TeamsModel, as: 'teamAway', attributes: [['team_name', 'teamName']]  }
+          { model: TeamsModel, as: 'teamHome', attributes: ['teamName'] },
+          { model: TeamsModel, as: 'teamAway', attributes: ['teamName']   }
         ]
       });
     }

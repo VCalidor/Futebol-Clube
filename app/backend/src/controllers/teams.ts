@@ -4,12 +4,10 @@ import TeamsModel from '../database/models/team';
 
 class TeamsController {
 
-  constructor() {} 
+  constructor() {}  
 
   public getAll = async (_req: Request, res: Response) => {
-    const teams = await TeamsModel.findAll({
-      attributes: ['id',['team_name', 'teamName']]
-    }) ;
+    const teams = await TeamsModel.findAll() ;
 
     return res.status(200).json(teams);
   };
@@ -18,7 +16,7 @@ class TeamsController {
     const { id } = req.params
     const team = await TeamsModel.findByPk(id);
 
-    if(team) return res.status(200).json({id: team.id , teamName: team.team_name });
+    if(team) return res.status(200).json({id: team.id , teamName: team.teamName });
 
     return res.status(404).json({ message: 'There is no team with such id!' });
   };
