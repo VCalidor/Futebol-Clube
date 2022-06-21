@@ -15,10 +15,9 @@ router.get(
   leaderboard.getAllAway,
 );
 
-//router.get(
-  //'/validate',
-  //authVal,
-  //login.loginValidate,
-//);
+router.get(
+  '/',
+  leaderboard.getAll,
+);
   
 export default router;

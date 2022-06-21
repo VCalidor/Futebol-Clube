@@ -15,8 +15,8 @@ function loginPostVal(req: Request, res: Response, next: NextFunction) {
 }
 
 function matchesPostVal(req: Request, res: Response, next: NextFunction) {
-  const match = req.body;
-  const { error } = matchPostSchema.validate(match);
+  const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = req.body;
+  const { error } = matchPostSchema.validate({ homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress });
 
   if (error) {
     return res.status(400).json({ message: error.details[0].message  });

@@ -70,9 +70,9 @@ class MatchesController {
   public finish = async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    const team = await TeamsModel.findByPk(id);
+    const team = await MatchesModel.findByPk(id);
     if(team === null) {
-      return res.status(404).json({ message: 'There is no team with such id!' });
+      return res.status(404).json({ message: 'There is no match with such id!' });
     }
 
     await MatchesModel.update({ inProgress: 'false' }, { where: { id } })
@@ -84,7 +84,7 @@ class MatchesController {
     const { id } = req.params;
     const { homeTeamGoals, awayTeamGoals } = req.body;
 
-    const match = await TeamsModel.findByPk(id);
+    const match = await MatchesModel.findByPk(id);
     if(match === null) {
       return res.status(404).json({ message: "There is no match with such id!" });
     }
