@@ -12,10 +12,10 @@ router.post(
   login.login,
 );
 
-//router.get(
-  //'/validate',
-  //authVal,
-  //login.loginValidate,
-//);
+router.get(
+  '/validate',
+  authVal,
+  login.loginValidate,
+);
   
 export default router;

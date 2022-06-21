@@ -45,8 +45,8 @@ const authVal = async (req: Request, res: Response, next: NextFunction) => {
 
     if(!token) return res.status(401).json({ message: 'Token not found' });
 
-    jwt.verify(token, JWTsecret);
-    // req.body.user = decode;
+    const morena = jwt.verify(token, JWTsecret);
+    req.body.user = morena;
 
     return next();
   } catch (err) {

@@ -31,7 +31,7 @@ class MatchesController {
         where: { inProgress: false},
         include: [
           { model: TeamsModel, as: 'teamHome', attributes: ['teamName'] },
-          { model: TeamsModel, as: 'teamAway', attributes: ['teamName']   }
+          { model: TeamsModel, as: 'teamAway', attributes: ['teamName'] }
         ]
       });
     }
@@ -45,7 +45,7 @@ class MatchesController {
 
     if(homeTeam === awayTeam) {
       return res
-      .status(401)
+      .status(404)
       .json({ message: "It is not possible to create a match with two equal teams" });
     }
   
@@ -72,10 +72,10 @@ class MatchesController {
 
     const team = await TeamsModel.findByPk(id);
     if(team === null) {
-      return res.status(404).json({ message: "There is no team with such id!" });
+      return res.status(404).json({ message: 'There is no team with such id!' });
     }
 
-    await MatchesModel.update({ inProgress: false }, { where: { id } })
+    await MatchesModel.update({ inProgress: 'false' }, { where: { id } })
 
     return res.status(200).json({ message: 'Finished' });
   };

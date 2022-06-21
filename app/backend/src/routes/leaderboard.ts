@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import Leaderboard from '../controllers/leaderboard';
-import { loginPostVal, authVal } from '../middlewares/validators'
 
 const router = Router();
 
@@ -8,7 +7,12 @@ const leaderboard = new Leaderboard();
 
 router.get(
   '/home',
-  leaderboard.getAll,
+  leaderboard.getAllHome,
+);
+
+router.get(
+  '/away',
+  leaderboard.getAllAway,
 );
 
 //router.get(

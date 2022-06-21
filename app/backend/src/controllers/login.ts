@@ -22,15 +22,15 @@ class LoginController {
 
     const token = jwt.sign({ email, id: user.id, role: user.role }, jwtSecret, { expiresIn: '1d' });
 
-    return res.status(200).json({
+    return res.status(200).json({ 
       user: { id: user.id, username: user.username, role: user.role, email: user.email }, token
     });
   };
 
   public loginValidate = async (req: Request, res: Response) => {
-    const lala = req.body.user.role
+    const matheusMoura = req.body.user.role;
     
-    return res.status(200).json(lala);
+    return res.status(200).json(matheusMoura);
   };
 }
 
