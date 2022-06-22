@@ -42,7 +42,7 @@ class LeaderboardController {
           if(homeTeamGoals > awayTeamGoals) teamPoints.totalVictories += 1;
           else if(homeTeamGoals === awayTeamGoals) teamPoints.totalDraws += 1;
           else teamPoints.totalLosses += 1;
-        } else if(teamAway.teamName === teamPoints.name) {
+        } else if(teamAway.teamName === teamPoints.name && inProgress === false) {
           teamPoints.goalsFavor += homeTeamGoals;
           teamPoints.goalsOwn += awayTeamGoals;
           teamPoints.totalGames += 1;
@@ -169,8 +169,8 @@ class LeaderboardController {
         efficiency: 0,
       }
 
-      matches.forEach(({ homeTeamGoals, awayTeamGoals, teamAway }) => {
-        if(teamAway.teamName === teamPoints.name) {
+      matches.forEach(({ homeTeamGoals, awayTeamGoals, teamAway, inProgress }) => {
+        if(teamAway.teamName === teamPoints.name && inProgress === false) {
           teamPoints.goalsFavor += homeTeamGoals;
           teamPoints.goalsOwn += awayTeamGoals;
           teamPoints.totalGames += 1;

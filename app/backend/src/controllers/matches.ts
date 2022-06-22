@@ -45,7 +45,7 @@ class MatchesController {
 
     if(homeTeam === awayTeam) {
       return res
-      .status(404)
+      .status(401)
       .json({ message: "It is not possible to create a match with two equal teams" });
     }
   
@@ -53,7 +53,7 @@ class MatchesController {
     const awayTeamExists = await TeamsModel.findByPk(awayTeam);
 
     if(homeTeamExists === null || awayTeamExists === null) {
-      return res.status(400).json({ message: "There is no team with such id!" });
+      return res.status(404).json({ message: "There is no team with such id!" });
     }
 
     const newMatch = await MatchesModel.create({
