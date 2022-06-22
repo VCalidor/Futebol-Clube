@@ -10,7 +10,6 @@ const matchPostSchema = Joi.object({
   awayTeam: Joi.number().integer().min(0).required(),
   homeTeamGoals: Joi.number().integer().min(0).required(),
   awayTeamGoals: Joi.number().integer().min(0).required(),
-  inProgress: Joi.boolean().required(),
 });
 
 const matchPatchSchema = Joi.object({

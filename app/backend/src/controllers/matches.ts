@@ -89,7 +89,7 @@ class MatchesController {
       return res.status(404).json({ message: "There is no match with such id!" });
     }
 
-    await MatchesModel.update({ homeTeamGoals, awayTeamGoals, inProgress: false }, { where: { id } })
+    await MatchesModel.update({ homeTeamGoals, awayTeamGoals }, { where: { id } })
 
     return res.status(200).json({ message: 'Morena Tropicana' });
   };

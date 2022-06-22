@@ -43,11 +43,11 @@ class LeaderboardController {
           else if(homeTeamGoals === awayTeamGoals) teamPoints.totalDraws += 1;
           else teamPoints.totalLosses += 1;
         } else if(teamAway.teamName === teamPoints.name && inProgress === false) {
-          teamPoints.goalsFavor += homeTeamGoals;
-          teamPoints.goalsOwn += awayTeamGoals;
+          teamPoints.goalsFavor += awayTeamGoals;
+          teamPoints.goalsOwn += homeTeamGoals;
           teamPoints.totalGames += 1;
 
-          if(homeTeamGoals > awayTeamGoals) teamPoints.totalVictories += 1;
+          if(awayTeamGoals > homeTeamGoals) teamPoints.totalVictories += 1;
           else if(homeTeamGoals === awayTeamGoals) teamPoints.totalDraws += 1;
           else teamPoints.totalLosses += 1;
         }
@@ -171,11 +171,11 @@ class LeaderboardController {
 
       matches.forEach(({ homeTeamGoals, awayTeamGoals, teamAway, inProgress }) => {
         if(teamAway.teamName === teamPoints.name && inProgress === false) {
-          teamPoints.goalsFavor += homeTeamGoals;
-          teamPoints.goalsOwn += awayTeamGoals;
+          teamPoints.goalsFavor += awayTeamGoals;
+          teamPoints.goalsOwn += homeTeamGoals;
           teamPoints.totalGames += 1;
 
-          if(homeTeamGoals > awayTeamGoals) teamPoints.totalVictories += 1;
+          if(awayTeamGoals > homeTeamGoals) teamPoints.totalVictories += 1;
           else if(homeTeamGoals === awayTeamGoals) teamPoints.totalDraws += 1;
           else teamPoints.totalLosses += 1;
         }
@@ -183,7 +183,8 @@ class LeaderboardController {
 
       teamPoints.goalsBalance = teamPoints.goalsFavor - teamPoints.goalsOwn
       teamPoints.totalPoints += teamPoints.totalVictories * 3 + teamPoints.totalDraws;
-      teamPoints.efficiency = Math.round(teamPoints.totalPoints / (teamPoints.totalGames * 3) * 100 * 100) / 100
+      teamPoints.efficiency = teamPoints.totalPoints / (teamPoints.totalGames * 3) * 100;
+      teamPoints.efficiency = Number(teamPoints.efficiency.toFixed(2));
 
       return teamPoints;
     })

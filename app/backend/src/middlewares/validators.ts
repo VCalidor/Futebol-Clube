@@ -11,18 +11,18 @@ function loginPostVal(req: Request, res: Response, next: NextFunction) {
     return res.status(400).json({ message: 'All fields must be filled' });
   }
 
-  next();
+  return next();
 }
 
 function matchesPostVal(req: Request, res: Response, next: NextFunction) {
-  const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = req.body;
-  const { error } = matchPostSchema.validate({ homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress });
+  const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = req.body;
+  const { error } = matchPostSchema.validate({ homeTeam, awayTeam, homeTeamGoals, awayTeamGoals });
 
   if (error) {
     return res.status(400).json({ message: error.details[0].message  });
   }
 
-  next();
+  return next();
 }
 
 function matchesPatchVal(req: Request, res: Response, next: NextFunction) {
@@ -33,7 +33,7 @@ function matchesPatchVal(req: Request, res: Response, next: NextFunction) {
     return res.status(400).json({ message: error.details[0].message  });
   }
 
-  next();
+  return next();
 }
 
 
